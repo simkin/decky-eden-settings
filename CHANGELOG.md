@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- New: *Sound output* (Stereo, Surround 5.1, Mono), with a note that Eden currently still outputs 2 channels in Surround.
+
 ## 1.0.1
 
 - New: *Eden info* has its own tab next to *Settings*; status and version stay visible on top. Every info line is

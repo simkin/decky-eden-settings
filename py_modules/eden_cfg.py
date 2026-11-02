@@ -54,6 +54,9 @@ SETTINGS = [
          options=["false", "true"]),
     dict(key="use_asynchronous_shaders", section="Renderer", group="performance", default="false",
          options=["false", "true"]),
+    # --- audio
+    dict(key="sound_index", section="System", group="audio", default="1",
+         options=["1", "2", "0"]),                              # stereo surround mono
     # --- fixes
     dict(key="rescale_hack", section="Renderer", group="fixes", default="false",
          options=["false", "true"]),

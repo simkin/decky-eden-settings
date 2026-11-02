@@ -60,7 +60,7 @@ const saveIcon = callable<[titleId: string, data: string], string | null>("save_
 const getIcon = callable<[titleId: string], string | null>("get_icon");
 
 const FOLLOW_GLOBAL = "__global__";
-const GROUPS = ["image", "performance", "fixes"];
+const GROUPS = ["image", "performance", "audio", "fixes"];
 
 const small: CSSProperties = { fontSize: "12px", lineHeight: 1.35, opacity: 0.8 };
 const heading: CSSProperties = {

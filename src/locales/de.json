@@ -15,6 +15,7 @@
   "section.global.hint": "Standardwerte für jedes Spiel. Ein Spiel kann sie unter „Pro Spiel“ überschreiben.",
   "group.image": "Bildqualität",
   "group.performance": "Leistung",
+  "group.audio": "Audio",
   "group.fixes": "Kompatibilität",
 
   "section.game": "Pro Spiel",
@@ -152,6 +153,12 @@
   "setting.use_asynchronous_shaders.desc": "Kompiliert Shader im Hintergrund, um Ruckler zu verringern. Objekte können kurz fehlen oder falsch aussehen, bis ihr Shader fertig ist.",
   "option.use_asynchronous_shaders.false": "Aus",
   "option.use_asynchronous_shaders.true": "An",
+
+  "setting.sound_index.label": "Tonausgabe",
+  "setting.sound_index.desc": "Stereo ist der sichere Standard. Surround fordert von Spielen 5.1-Ton für ein Surround-System an. Hinweis: Eden gibt derzeit auch mit Surround nur 2 Kanäle aus. Das ist ein bekanntes Eden-Problem, daher ist es vorerst harmlos, ändert aber nichts; es sollte funktionieren, sobald Eden es behebt.",
+  "option.sound_index.1": "Stereo",
+  "option.sound_index.2": "Surround (5.1)",
+  "option.sound_index.0": "Mono",
 
   "setting.rescale_hack.label": "Rescale-Hack",
   "setting.rescale_hack.desc": "Notlösung für Spiele mit kaputter oder fehlender Grafik oberhalb von 1x Auflösung. Schalte es nur ein, wenn ein Spiel beim Hochskalieren falsch aussieht.",

@@ -1,6 +1,6 @@
 {
   "name": "decky-eden-settings",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Change Eden (Nintendo Switch emulator) settings globally or per game from Steam Game Mode, with an explanation for every option",
   "type": "module",
   "scripts": {

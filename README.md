@@ -10,9 +10,9 @@ Mode to change a resolution.
 
 ## Features
 
-- **15 curated settings** in three groups: *Image quality* (resolution, upscaling filter, FSR sharpness, anti-aliasing,
+- **16 curated settings** in four groups: *Image quality* (resolution, upscaling filter, FSR sharpness, anti-aliasing,
   anisotropic filtering, aspect ratio), *Performance* (console mode, video memory use, VSync, speed limit, GPU clock,
-  asynchronous shaders) and *Compatibility* (rescale hack, video decoding).
+  asynchronous shaders), *Audio* (sound output) and *Compatibility* (rescale hack, video decoding).
 - **Global and per game.** Pick a game and change only what it needs. *Global* means "follow the global setting", and
   the dropdown shows what that currently is.
 - **Steam shortcuts.** One button per game adds a Game Mode tile (name, launch options, generated artwork and icon)
@@ -103,8 +103,8 @@ tools/qam.sh        # screenshot the real panel via Steam's CEF debug port (8080
 - Only settings whose values have been checked against Eden's source are offered. Eden has many more; ideas and
   pull requests are welcome.
 - Resolution scaling above 1x breaks a few games (black or missing graphics). Try the *Rescale hack*, or go back to 1x.
-- Eden's *Surround* audio option is intentionally not included: at the time of writing Eden still opens a 2-channel
-  stream regardless of it.
+- *Sound output → Surround* is offered, but at the time of writing Eden still opens a 2-channel stream regardless
+  of it (a known Eden issue). Switching is harmless and the panel says so; it should start working once Eden fixes it.
 - The plugin edits Eden's configuration files directly. Backups are in
   `~/homebrew/data/EdenSettings/backups`.
 

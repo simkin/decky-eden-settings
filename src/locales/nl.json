@@ -15,6 +15,7 @@
   "section.global.hint": "Standaardwaarden voor elke game. Een game kan ze overschrijven bij Per game.",
   "group.image": "Beeldkwaliteit",
   "group.performance": "Prestaties",
+  "group.audio": "Geluid",
   "group.fixes": "Compatibiliteit",
 
   "section.game": "Per game",
@@ -152,6 +153,12 @@
   "setting.use_asynchronous_shaders.desc": "Compileert shaders op de achtergrond om haperingen te verminderen. Objecten kunnen even ontbreken of er verkeerd uitzien tot hun shader klaar is.",
   "option.use_asynchronous_shaders.false": "Uit",
   "option.use_asynchronous_shaders.true": "Aan",
+
+  "setting.sound_index.label": "Geluidsuitvoer",
+  "setting.sound_index.desc": "Stereo is de veilige standaard. Surround vraagt games om 5.1-geluid voor een surroundsysteem. Let op: Eden geeft op dit moment nog steeds maar 2 kanalen uit, ook met Surround aan. Dat is een bekend probleem van Eden, dus het is nu onschadelijk maar verandert niets; het zou moeten gaan werken zodra Eden het oplost.",
+  "option.sound_index.1": "Stereo",
+  "option.sound_index.2": "Surround (5.1)",
+  "option.sound_index.0": "Mono",
 
   "setting.rescale_hack.label": "Rescale-hack",
   "setting.rescale_hack.desc": "Noodgreep voor games met kapotte of ontbrekende beelden boven 1x resolutie. Zet het alleen aan als een game er bij opschalen verkeerd uitziet.",

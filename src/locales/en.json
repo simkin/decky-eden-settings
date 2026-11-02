@@ -15,6 +15,7 @@
   "section.global.hint": "Defaults for every game. A game can override them in the Per game section.",
   "group.image": "Image quality",
   "group.performance": "Performance",
+  "group.audio": "Audio",
   "group.fixes": "Compatibility",
 
   "section.game": "Per game",
@@ -152,6 +153,12 @@
   "setting.use_asynchronous_shaders.desc": "Compiles shaders in the background to reduce stutter. Objects may briefly be missing or look wrong until their shader is ready.",
   "option.use_asynchronous_shaders.false": "Off",
   "option.use_asynchronous_shaders.true": "On",
+
+  "setting.sound_index.label": "Sound output",
+  "setting.sound_index.desc": "Stereo is the safe default. Surround asks games for 5.1 sound for a surround system. Heads-up: Eden currently still outputs only 2 channels, even with Surround on. That is a known Eden issue, so for now it is harmless but changes nothing; it should start working once Eden fixes it.",
+  "option.sound_index.1": "Stereo",
+  "option.sound_index.2": "Surround (5.1)",
+  "option.sound_index.0": "Mono",
 
   "setting.rescale_hack.label": "Rescale hack",
   "setting.rescale_hack.desc": "Workaround for games that show broken or missing graphics above 1x resolution. Only turn it on if a game looks wrong when upscaled.",
