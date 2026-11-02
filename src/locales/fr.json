@@ -10,6 +10,7 @@
   "status.notFound.title": "Eden introuvable",
   "status.notFound.body": "Aucun fichier de réglages d'Eden n'a été trouvé. Installez Eden (Flatpak : dev.eden_emu.eden), lancez-le une fois, puis rouvrez ce panneau.",
 
+  "tab.settings": "Réglages",
   "section.global": "Global (tous les jeux)",
   "section.global.hint": "Valeurs par défaut pour chaque jeu. Un jeu peut les remplacer dans la section Par jeu.",
   "group.image": "Qualité d'image",

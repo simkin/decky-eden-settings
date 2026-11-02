@@ -18,7 +18,7 @@ Mode to change a resolution.
 - **Steam shortcuts.** One button per game adds a Game Mode tile (name, launch options, generated artwork and icon)
   that starts Eden fullscreen with that game, and removes it again. Tiles you already made by hand are recognised.
 - **Every option explained**, in your language: what it does, what it costs and when to use it.
-- **Eden info** at the top and bottom of the panel: running or not, version, installation type, settings file, game
+- **Eden info:** status and version on top of the panel, and a separate *Eden info* tab next to *Settings* with the installation type, settings file, launcher, game
   folders and backups.
 - **Safe.** Nothing is written while Eden runs (Eden rewrites its own files when it closes, which would undo your
   change). Before every write the file is backed up (the last 20 are kept), the write is atomic, and only the lines of

@@ -1,12 +1,15 @@
 import {
   ButtonItem,
+  DialogButton,
   DropdownItem,
+  Field,
+  Focusable,
   PanelSection,
   PanelSectionRow,
   staticClasses,
 } from "@decky/ui";
 import { callable, definePlugin, toaster } from "@decky/api";
-import { CSSProperties, ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import { CSSProperties, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FaGamepad } from "react-icons/fa";
 import { makeArtwork } from "./artwork";
 import { detectLanguage, hasKey, makeTranslator, Translate } from "./i18n";
@@ -90,13 +93,14 @@ function errorText(t: Translate, error?: string): string {
   return error ?? t("toast.unknown");
 }
 
+/** One line of the info block. `focusable` is essential: the gamepad only scrolls to things it can focus, so plain
+ *  text rows at the end of the panel would be unreachable. */
 function Row({ label, children }: { label: string; children: ReactNode }) {
   return (
     <PanelSectionRow>
-      <div style={{ width: "100%", paddingBottom: "6px" }}>
-        <div style={{ ...small, opacity: 0.7 }}>{label}</div>
-        <div style={{ fontSize: "13px", lineHeight: 1.35, overflowWrap: "anywhere" }}>{children}</div>
-      </div>
+      <Field label={label} childrenLayout="below" focusable highlightOnFocus>
+        <div style={{ fontSize: "13px", lineHeight: 1.4, overflowWrap: "anywhere", color: "rgba(255,255,255,0.9)" }}>{children}</div>
+      </Field>
     </PanelSectionRow>
   );
 }
@@ -136,6 +140,39 @@ function StatusBlock({ t, state }: { t: Translate; state: State }) {
   );
 }
 
+type TabId = "settings" | "info";
+
+/** Two-button tab bar. (Decky's own `Tabs` is made for full-screen pages and does not fit the narrow QAM.) */
+function TabBar({ t, active, onChange }: { t: Translate; active: TabId; onChange: (id: TabId) => void }) {
+  const tabs: { id: TabId; label: string }[] = [
+    { id: "settings", label: t("tab.settings") },
+    { id: "info", label: t("info.title") },
+  ];
+  return (
+    <PanelSection>
+      <PanelSectionRow>
+        <Focusable style={{ display: "flex", gap: "8px", width: "100%" }} flow-children="horizontal">
+          {tabs.map((tab) => (
+            <DialogButton
+              key={tab.id}
+              onClick={() => onChange(tab.id)}
+              style={{
+                flex: 1,
+                minWidth: 0,
+                padding: "8px 4px",
+                fontWeight: 600,
+                ...(tab.id === active ? { background: "#1a9fff", color: "#fff" } : {}),
+              }}
+            >
+              {tab.label}
+            </DialogButton>
+          ))}
+        </Focusable>
+      </PanelSectionRow>
+    </PanelSection>
+  );
+}
+
 function InfoBlock({ t, info }: { t: Translate; info: Info }) {
   return (
     <PanelSection title={t("info.title")}>
@@ -160,8 +197,11 @@ function InfoBlock({ t, info }: { t: Translate; info: Info }) {
 function Content({ t }: { t: Translate }) {
   const [state, setState] = useState<State | null>(null);
   const [gameId, setGameId] = useState<string>("");
-  const [busy, setBusy] = useState(false);
-  const [shortcutTick, setShortcutTick] = useState(0); // bumped after a Steam shortcut changes, to re-read Steam's list
+  const [tab, setTab] = useState<TabId>("settings");
+  // Guards against overlapping saves. Deliberately NOT state/`disabled`: disabling a control that has focus makes the
+  // gamepad focus jump back to the top of the panel.
+  const busy = useRef(false);
+  const [, setShortcutTick] = useState(0); // bumped after a Steam shortcut changes, to re-read Steam's list
 
   const refresh = useCallback(async () => {
     try {
@@ -179,7 +219,8 @@ function Content({ t }: { t: Translate }) {
   }, [refresh]);
 
   const act = async (fn: () => Promise<Result>) => {
-    setBusy(true);
+    if (busy.current) return;
+    busy.current = true;
     try {
       const r = await fn();
       if (!r.ok) toaster.toast({ title: t("toast.title"), body: errorText(t, r.error) });
@@ -188,12 +229,13 @@ function Content({ t }: { t: Translate }) {
       toaster.toast({ title: t("toast.title"), body: t("toast.actionFailed") });
     } finally {
       await refresh();
-      setBusy(false);
+      busy.current = false;
     }
   };
 
   const shortcutAction = async (game: Game, info: Info, existing: ReturnType<typeof findShortcut>) => {
-    setBusy(true);
+    if (busy.current) return;
+    busy.current = true;
     const name = `${game.name} (Eden)`;
     try {
       if (existing) {
@@ -210,7 +252,7 @@ function Content({ t }: { t: Translate }) {
     } finally {
       // Steam updates its app list asynchronously; give it a moment before re-reading.
       setTimeout(() => setShortcutTick((n) => n + 1), 800);
-      setBusy(false);
+      busy.current = false;
     }
   };
 
@@ -222,7 +264,7 @@ function Content({ t }: { t: Translate }) {
     );
   }
 
-  const locked = busy || state.eden_running || !state.info.installed;
+  const locked = state.eden_running || !state.info.installed;
   const game = state.games.find((g) => g.id === gameId);
   const customCount = game ? state.schema.filter((s) => game.overrides[s.key] != null).length : 0;
 
@@ -233,7 +275,11 @@ function Content({ t }: { t: Translate }) {
   return (
     <>
       <StatusBlock t={t} state={state} />
+      {state.info.installed && <TabBar t={t} active={tab} onChange={setTab} />}
+      {(!state.info.installed || tab === "info") && <InfoBlock t={t} info={state.info} />}
 
+      {state.info.installed && tab === "settings" && (
+      <>
       <PanelSection title={t("section.global")}>
         <PanelSectionRow>
           <div style={small}>{t("section.global.hint")}</div>
@@ -287,21 +333,19 @@ function Content({ t }: { t: Translate }) {
                     )}
                   </>
                 }
-                disabled={busy}
                 rgOptions={state.games.map((g) => ({ data: g.id, label: g.name }))}
                 selectedOption={gameId}
                 onChange={(o) => setGameId(o.data as string)}
               />
             </PanelSectionRow>
             {game && (
-              <PanelSectionRow key={`shortcut-${game.id}-${shortcutTick}`}>
+              <PanelSectionRow key="shortcut">
                 {(() => {
                   const existing = findShortcut(game);
                   if (!game.path && !existing) return <div style={small}>{t("shortcut.noPath")}</div>;
                   return (
                     <ButtonItem
                       layout="below"
-                      disabled={busy}
                       description={
                         existing
                           ? t("shortcut.remove.desc", { name: existing.name })
@@ -317,7 +361,7 @@ function Content({ t }: { t: Translate }) {
             )}
             {game &&
               groups.map((g) => (
-                <div key={game.id + g.id}>
+                <div key={g.id}>
                   <PanelSectionRow>
                     <div style={heading}>{t(`group.${g.id}`)}</div>
                   </PanelSectionRow>
@@ -332,7 +376,7 @@ function Content({ t }: { t: Translate }) {
                       ...optionValues(s, override).map((v) => ({ data: v, label: optionLabel(t, s, v) })),
                     ];
                     return (
-                      <PanelSectionRow key={game.id + s.key}>
+                      <PanelSectionRow key={s.key}>
                         <DropdownItem
                     layout="below"
                           label={t(`setting.${s.key}.label`)}
@@ -364,8 +408,8 @@ function Content({ t }: { t: Translate }) {
           </>
         )}
       </PanelSection>
-
-      <InfoBlock t={t} info={state.info} />
+      </>
+      )}
     </>
   );
 }

@@ -10,6 +10,7 @@
   "status.notFound.title": "Eden nicht gefunden",
   "status.notFound.body": "Es wurde keine Einstellungsdatei von Eden gefunden. Installiere Eden (Flatpak: dev.eden_emu.eden), starte es einmal und öffne dieses Panel erneut.",
 
+  "tab.settings": "Einstellungen",
   "section.global": "Global (alle Spiele)",
   "section.global.hint": "Standardwerte für jedes Spiel. Ein Spiel kann sie unter „Pro Spiel“ überschreiben.",
   "group.image": "Bildqualität",

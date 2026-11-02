@@ -10,6 +10,7 @@
   "status.notFound.title": "Eden niet gevonden",
   "status.notFound.body": "Er is geen instellingenbestand van Eden gevonden. Installeer Eden (Flatpak: dev.eden_emu.eden), start het één keer en open dit paneel opnieuw.",
 
+  "tab.settings": "Instellingen",
   "section.global": "Globaal (alle games)",
   "section.global.hint": "Standaardwaarden voor elke game. Een game kan ze overschrijven bij Per game.",
   "group.image": "Beeldkwaliteit",

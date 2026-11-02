@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1
+
+- New: *Eden info* has its own tab next to *Settings*; status and version stay visible on top. Every info line is
+  focusable, so the gamepad can reach it, and the text is larger and easier to read.
+- Fixed: choosing another game (or changing a setting) made the gamepad focus jump to the top of the panel. Rows
+  are no longer rebuilt when the game changes, and controls are no longer disabled while a change is being saved.
+
 ## 1.0.0
 
 First public release.

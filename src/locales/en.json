@@ -10,6 +10,7 @@
   "status.notFound.title": "Eden not found",
   "status.notFound.body": "No Eden settings file was found. Install Eden (Flatpak: dev.eden_emu.eden) and start it once, then reopen this panel.",
 
+  "tab.settings": "Settings",
   "section.global": "Global (all games)",
   "section.global.hint": "Defaults for every game. A game can override them in the Per game section.",
   "group.image": "Image quality",
