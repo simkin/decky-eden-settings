@@ -1,0 +1,17 @@
+{
+  "name": "Eden Settings",
+  "author": "Lucas M.",
+  "flags": [],
+  "api_version": 1,
+  "publish": {
+    "tags": [
+      "emulation",
+      "eden",
+      "switch",
+      "settings",
+      "nintendo"
+    ],
+    "description": "Change the most useful Eden (Nintendo Switch emulator) settings, globally or per game, straight from Game Mode, with a plain-language explanation for every option.",
+    "image": "https://raw.githubusercontent.com/simkin/decky-eden-settings/main/assets/screenshot-global.png"
+  }
+}
